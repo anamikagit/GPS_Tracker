@@ -1,16 +1,19 @@
 package com.example.aarya.gps_tracker.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.icu.text.DateFormat;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.aarya.gps_tracker.R;
+import com.example.aarya.gps_tracker.model.Utility;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -50,6 +53,13 @@ public class MainActivity extends Activity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        String deviceNum;
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        deviceNum = telephonyManager.getDeviceId();
+        Utility.imei = deviceNum.toString();
+
         Log.d(TAG, "onCreate ...............................");
         //show error dialog if GoolglePlayServices not available
         if (!isGooglePlayServicesAvailable()) {
