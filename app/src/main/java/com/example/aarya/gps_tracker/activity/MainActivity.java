@@ -1,4 +1,4 @@
-package com.example.aarya.gps_tracker;
+package com.example.aarya.gps_tracker.activity;
 
 import android.app.Activity;
 import android.icu.text.DateFormat;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.aarya.gps_tracker.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
