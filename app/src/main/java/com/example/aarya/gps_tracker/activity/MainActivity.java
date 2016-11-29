@@ -2,9 +2,7 @@ package com.example.aarya.gps_tracker.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.icu.text.DateFormat;
 import android.location.Location;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -13,7 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.aarya.gps_tracker.R;
+import com.example.aarya.gps_tracker.model.GpsParameters;
 import com.example.aarya.gps_tracker.model.Utility;
+import com.example.aarya.gps_tracker.rest.ApiClient;
+import com.example.aarya.gps_tracker.rest.ApiInterface;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -25,6 +26,11 @@ import com.google.android.gms.location.LocationServices;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.icu.text.DateFormat.getDateTimeInstance;
 
@@ -59,6 +65,25 @@ public class MainActivity extends Activity implements
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         deviceNum = telephonyManager.getDeviceId();
         Utility.imei = deviceNum.toString();
+
+
+
+       /* ApiInterface apiSeervice = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<List<GpsParameters>> call = apiSeervice.sendGpsData(Utility.imei);
+        call.enqueue(new Callback<List<GpsParameters>>() {
+            @Override
+            public void onResponse(Call<List<GpsParameters>> call, Response<List<GpsParameters>> response) {
+                List<GpsParameters> guards = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<GpsParameters>> call, Throwable t) {
+                Log.e(TAG, "Call failed: " + t.getMessage());
+            }
+        });
+*/
+
 
         Log.d(TAG, "onCreate ...............................");
         //show error dialog if GoolglePlayServices not available

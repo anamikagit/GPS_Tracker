@@ -11,16 +11,7 @@ import retrofit2.http.Query;
 public class ApiInterface {
 
     @GET("/sgm_android/WebService.asmx/insertfolochist")
-    Call<List<GpsDataStore>> sendGpsData(@Query("lat") String latitude,
-                                         @Query("lon") String longitude,
-                                         @Query("imei") String imei,
-                                         @Query("battery") String battery,
-                                         @Query("date_time") boolean dateTime,
-                                         @Query("location") String location,
-                                         @Query("Panic") String panic,
-                                         @Query("Accurate") String accurate,
-                                         @Query("Speed") String speed,
-                                         @Query("Direction") String direction) {
+    public Call<List<GpsDataStore>> sendGpsData(@Query("lat") String latitude) {
         return null;
     }
 }
