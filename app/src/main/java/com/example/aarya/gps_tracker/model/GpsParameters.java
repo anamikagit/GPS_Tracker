@@ -1,9 +1,5 @@
 package com.example.aarya.gps_tracker.model;
 
-/**
- * Created by Aarya on 29-Nov-16.
- */
-
 public class GpsParameters {
 
     private String lat;

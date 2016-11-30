@@ -5,10 +5,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Aarya on 29-Nov-16.
- */
-
 public class ApiClient {
     public static final String BASE_URL = "http://111.118.178.163/";
     private static Retrofit retrofit = null;
