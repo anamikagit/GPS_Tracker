@@ -64,17 +64,19 @@ public class MainActivity extends Activity implements
         String deviceNum;
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         deviceNum = telephonyManager.getDeviceId();
-        Utility.imei = deviceNum.toString();
+       // Utility.imei = deviceNum.toString();
 
 
 
-       /* ApiInterface apiSeervice = ApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiSeervice = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<List<GpsParameters>> call = apiSeervice.sendGpsData(Utility.imei);
+        Call<List<GpsParameters>> call = apiSeervice.sendGpsData(deviceNum,Utility.getDateTime(),
+                "lat","long","accuracy","speed","battery","location","panic","direction");
         call.enqueue(new Callback<List<GpsParameters>>() {
             @Override
             public void onResponse(Call<List<GpsParameters>> call, Response<List<GpsParameters>> response) {
-                List<GpsParameters> guards = response.body();
+               // List<GpsParameters> gpsData = response.body();
+                Log.e(TAG, "onResponse is called: " + response.toString());
             }
 
             @Override
@@ -82,7 +84,7 @@ public class MainActivity extends Activity implements
                 Log.e(TAG, "Call failed: " + t.getMessage());
             }
         });
-*/
+
 
 
         Log.d(TAG, "onCreate ...............................");
