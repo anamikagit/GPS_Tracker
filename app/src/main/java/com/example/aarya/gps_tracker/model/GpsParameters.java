@@ -2,30 +2,30 @@ package com.example.aarya.gps_tracker.model;
 
 public class GpsParameters {
 
-    private String lat;
-    private String lon;
+    private double lat;
+    private double lon;
     private String imei;
     private String date_time;
-    private String Accurate;
+    private float Accurate;
     private String battery;
     private String location;
     private String Panic;
     private String Speed;
     private String Direction;
 
-    public String getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon(String lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
@@ -45,11 +45,11 @@ public class GpsParameters {
         this.date_time = date_time;
     }
 
-    public String getAccurate() {
+    public float getAccurate() {
         return Accurate;
     }
 
-    public void setAccurate(String accurate) {
+    public void setAccurate(float accurate) {
         Accurate = accurate;
     }
 

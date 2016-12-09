@@ -1,14 +1,20 @@
 package com.example.aarya.gps_tracker.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aarya.gps_tracker.R;
 import com.example.aarya.gps_tracker.model.GpsParameters;
@@ -55,23 +61,49 @@ public class MainActivity extends Activity implements
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
+    //Battery percentage
+    private Context mContext;
+    private TextView mTextViewPercentage;
+    private int mProgressStatus = 0;
+
+
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE,-1);
+            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL,-1);
+            float percentage = level/ (float) scale;
+            mProgressStatus = (int)((percentage)*100);
+           /* mTextViewPercentage.setText("" + mProgressStatus + "%");
+            Toast.makeText(MainActivity.this,"Battery :" + mProgressStatus + "%",Toast.LENGTH_LONG).show();*/
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
+      requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mContext = getApplicationContext();
+        IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        mContext.registerReceiver(mBroadcastReceiver,iFilter);
+
+
         String deviceNum;
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         deviceNum = telephonyManager.getDeviceId();
-       // Utility.imei = deviceNum.toString();
 
-
-
-        ApiInterface apiSeervice = ApiClient.getClient().create(ApiInterface.class);
+        /*ApiInterface apiSeervice = ApiClient.getClient().create(ApiInterface.class);
 
         Call<List<GpsParameters>> call = apiSeervice.sendGpsData(deviceNum,Utility.getDateTime(),
-                "lat","long","accuracy","speed","battery","location","panic","direction");
+                                                                    "lat",
+                                                                    "long",
+                                                                    mCurrentLocation.getAccuracy(),
+                                                                    "speed","battery", mCurrentLocation.getProvider(),
+                                                                    "panic","direction");
         call.enqueue(new Callback<List<GpsParameters>>() {
             @Override
             public void onResponse(Call<List<GpsParameters>> call, Response<List<GpsParameters>> response) {
@@ -83,9 +115,7 @@ public class MainActivity extends Activity implements
             public void onFailure(Call<List<GpsParameters>> call, Throwable t) {
                 Log.e(TAG, "Call failed: " + t.getMessage());
             }
-        });
-
-
+        });*/
 
         Log.d(TAG, "onCreate ...............................");
         //show error dialog if GoolglePlayServices not available
